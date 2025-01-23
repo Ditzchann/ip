@@ -10,10 +10,10 @@ public class Angela {
 				What can I do for you, Manager?""", true);
         do {
             input = textIn.nextLine();
-            if (input != "bye") {
+            if (!input.equals("bye")) {
                 output(input, true);
             }
-        } while (input != "bye"));
+        } while (!input.equals("bye"));
         exit();
     }
 
