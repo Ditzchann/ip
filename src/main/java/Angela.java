@@ -1,19 +1,15 @@
 import java.util.Scanner;
+import java.util.List;
+
 public class Angela {
     public static void main(String[] args) {
-        Scanner textIn = new Scanner(System.in);
-        String input;
+        Processor process = new Processor();
         output("""
-				Hello X. I am Angela, your advisor and secretary.\s
+				Hello X. I am Angela, your advisor and secretary.\s 
 				My role as an AI is to assist you in adjusting to your \s
 				new workplace.\s
 				What can I do for you, Manager?""", true);
-        do {
-            input = textIn.nextLine();
-            if (!input.equals("bye")) {
-                output(input, true);
-            }
-        } while (!input.equals("bye"));
+        process.start();
         exit();
     }
 
