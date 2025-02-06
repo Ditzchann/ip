@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Processor {
 	private List<Task> store = new ArrayList<>();
@@ -40,6 +42,14 @@ public class Processor {
 				} else {
 					markUndone(Integer.parseInt(input.substring(7)));
 				}
+			} else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("todo")) {
+				addTask(input);
+			} else if (input.length() >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline")) {
+				String name = trimInput(input);
+				String by = trimInput(input, "by");
+				//addTask(name, by);
+			} else if (input.length() >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
+
 			} else if (!input.equalsIgnoreCase("bye")) {
 				addTask(input);
 			}
@@ -57,9 +67,10 @@ public class Processor {
 	}
 
 	public void addTask(String input) {
-		store.add(new Task(input));
+		store.add(new ToDoTask(input));
 		output("added: " + input, true);
 	}
+
 
 	public void markDone(int input) {
 		//move validation here
@@ -77,5 +88,30 @@ public class Processor {
 			output("Manager, I believe the instructions to use the command was written in the manual.\n" +
 					"Please enter the command with the correct syntax.");
 		}
+	}
+
+	public String trimInput(String input) {
+		int i = 0;
+		while (i < input.length() && input.charAt(i) != ' ') {
+			i++;
+		}
+		i++;
+		int start = i;
+		while (i < input.length() && input.charAt(i) != '/') {
+			i++;
+		}
+		return input.substring(start, i);
+	}
+	public String trimInput(String input, String arg) {
+		Pattern searchFor = Pattern.compile("/" + arg, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = searchFor.matcher(input);
+		if (matcher.find()) {
+			int i = matcher.end();
+			while (i < input.length() && input.charAt(i) != '/') {
+				i++;
+			}
+			return input.substring(matcher.end(), i);
+		}
+		return "";
 	}
 }
