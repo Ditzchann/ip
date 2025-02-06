@@ -8,6 +8,10 @@ public class Task {
 	public void doTask() {
 		this.done = true;
 	}
+
+	public void undoTask() {
+		this.done = false;
+	}
 	public String toString() {
 		String out = "[";
 		if (this.done) {
