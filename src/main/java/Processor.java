@@ -43,13 +43,17 @@ public class Processor {
 					markUndone(Integer.parseInt(input.substring(7)));
 				}
 			} else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("todo")) {
-				addTask(input);
+				String name = trimInput(input);
+				addTask(name);
 			} else if (input.length() >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline")) {
 				String name = trimInput(input);
 				String by = trimInput(input, "by");
-				//addTask(name, by);
+				addTask(name, by);
 			} else if (input.length() >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
-
+				String name = trimInput(input);
+				String by = trimInput(input, "from"); //input validation zzzz
+				String to = trimInput(input, "to");
+				addTask(name, by, to);
 			} else if (!input.equalsIgnoreCase("bye")) {
 				addTask(input);
 			}
@@ -67,10 +71,25 @@ public class Processor {
 	}
 
 	public void addTask(String input) {
-		store.add(new ToDoTask(input));
-		output("added: " + input, true);
+		Task t = new ToDoTask((input));
+		store.add(t);
+		output("Did the Sephira give you a new task again?\n" + t +
+				"\nTask added, you now have " + store.size() + " tasks left.", true);
 	}
 
+	public void addTask(String input, String by) {
+		Task t = new DeadlineTask(input, by);
+		store.add(t);
+		output("A new energy quota to achieve. Please work hard, Manager.\n" + t +
+				"\nTask added, you now have " + store.size() + " tasks left.", true);
+	}
+
+	public void addTask(String input, String from, String to) {
+		Task t = new EventTask(input, from, to);
+		store.add(t);
+		output("Dawn arrives, with it comes a new Ordeal. Please take care of it, Manager.\n" + t +
+				"\nTask added, you now have " + store.size() + " tasks left.", true);
+	}
 
 	public void markDone(int input) {
 		//move validation here
@@ -110,7 +129,7 @@ public class Processor {
 			while (i < input.length() && input.charAt(i) != '/') {
 				i++;
 			}
-			return input.substring(matcher.end(), i);
+			return input.substring(matcher.end() + 1, i);
 		}
 		return "";
 	}
