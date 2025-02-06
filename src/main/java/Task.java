@@ -1,10 +1,12 @@
 public class Task {
 	private final String name;
 	private boolean done;
+
 	public Task(String name) {
 		this.name = name;
 		this.done = false;
 	}
+
 	public void doTask() {
 		this.done = true;
 	}
@@ -12,6 +14,7 @@ public class Task {
 	public void undoTask() {
 		this.done = false;
 	}
+
 	@Override
 	public String toString() {
 		String out = "[";
