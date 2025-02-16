@@ -1,0 +1,9 @@
+todo Extract EGO from Queen of Hatred
+deadline Resolve Qliphoth Meltdown of Nothing There /by 3pm
+event Noon Ordeal /from 12pm /to 1pm
+list
+mark 2
+list
+unmark 2
+list
+bye

@@ -19,9 +19,9 @@ public class Output {
 
 	public static void introOutput() {
 		output("""
-				Hello X. I am Angela, your advisor and secretary. \s 
-				My role as an AI is to assist you in adjusting to your \s
-				new workplace.\s
+				Hello X. I am Angela, your advisor and secretary.
+				My role as an AI is to assist you in adjusting to your
+				new workplace.
 				What can I do for you, Manager?""", true);
 	}
 
