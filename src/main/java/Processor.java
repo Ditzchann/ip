@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class Processor {
 	private List<Task> store;
 
- 	public Processor()  {
+	public Processor()  {
 		store = new ArrayList<>();
 	}
 
@@ -26,38 +26,34 @@ public class Processor {
 	public void start() {
 		Scanner textIn = new Scanner(System.in);
 		String input;
-		do {
-			input = textIn.nextLine();
-			if (input.equalsIgnoreCase("list")) {
-				printList();
-			} else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("mark")) { //probably move this in the future
-				if (input.length() < 6 || !input.substring(5).matches("[0-9]+")) {
-					printError(0);
-				} else {
-					markDone(Integer.parseInt(input.substring(5)));
-				}
-			} else if (input.length() >= 6 && input.substring(0, 6).equalsIgnoreCase("unmark")) {
-				if (input.length() < 8 || !input.substring(7).matches("[0-9]+")) {
-					printError(0);
-				} else {
-					markUndone(Integer.parseInt(input.substring(7)));
-				}
-			} else if (input.length() >= 4 && input.substring(0, 4).equalsIgnoreCase("todo")) {
-				String name = trimInput(input);
-				addTask(name);
-			} else if (input.length() >= 8 && input.substring(0, 8).equalsIgnoreCase("deadline")) {
-				String name = trimInput(input);
-				String by = trimInput(input, "by");
-				addTask(name, by);
-			} else if (input.length() >= 5 && input.substring(0, 5).equalsIgnoreCase("event")) {
-				String name = trimInput(input);
-				String by = trimInput(input, "from"); //input validation zzzz
-				String to = trimInput(input, "to");
-				addTask(name, by, to);
-			} else if (!input.equalsIgnoreCase("bye")) {
-				addTask(input);
-			}
-		} while (!input.equals("bye"));
+        boolean bExit = false;
+        while (!bExit) {
+            input = textIn.nextLine();
+            List<String> command = splitInput(input);
+            switch (command.get(0)) {
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    markDone(Integer.parseInt(command.get(1)));
+                    break;
+                case "unmark":
+                    markUndone(Integer.parseInt(command.get(1)));
+                    break;
+                case "todo":
+                    addTask(command.get(1));
+                    break;
+                case "deadline":
+                    addTask(command.get(1), command.get(3));
+                    break;
+                case "event":
+                    addTask(command.get(1), command.get(3), command.get(5));
+                    break;
+                case "bye":
+                    bExit = true;
+                    break;
+            }
+        }
 	}
 
 	public void printList() {
@@ -109,28 +105,36 @@ public class Processor {
 		}
 	}
 
-	public String trimInput(String input) {
+	public List<String> splitInput(String input) {
+		List<String> args = new ArrayList<>();
 		int i = 0;
+		i = getEndIndexOfWord(i, input, args);
+		i = getEndIndexOfArg(i, input, args);
+		while (i < input.length()) {
+			i = getEndIndexOfWord(i, input, args);
+            i = getEndIndexOfArg(i, input, args);
+		}
+        return args;
+	}
+	public int getEndIndexOfWord(int start, String input, List<String> args) {
+		int i = start;
 		while (i < input.length() && input.charAt(i) != ' ') {
 			i++;
 		}
-		i++;
-		int start = i;
-		while (i < input.length() && input.charAt(i) != '/') {
-			i++;
-		}
-		return input.substring(start, i);
+        if (start != i) {
+            args.add(input.substring(start, i).trim());
+        }
+		return i + 1;
 	}
-	public String trimInput(String input, String arg) {
-		Pattern searchFor = Pattern.compile("/" + arg, Pattern.CASE_INSENSITIVE);
-		Matcher matcher = searchFor.matcher(input);
-		if (matcher.find()) {
-			int i = matcher.end();
-			while (i < input.length() && input.charAt(i) != '/') {
-				i++;
-			}
-			return input.substring(matcher.end() + 1, i);
-		}
-		return "";
-	}
+
+    public int getEndIndexOfArg(int start, String input, List<String> args) {
+        int i = start;
+        while (i < input.length() && input.charAt(i) != '/') {
+            i++;
+        }
+        if (start != i) {
+            args.add(input.substring(start, i).trim());
+        }
+        return i + 1;
+    }
 }
