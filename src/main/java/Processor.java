@@ -5,10 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Processor {
-	private List<Task> store = new ArrayList<>();
+	private List<Task> store;
 
-	public Processor()  {
-
+ 	public Processor()  {
+		store = new ArrayList<>();
 	}
 
 	public static void output(String text, Boolean head) {
@@ -23,7 +23,7 @@ public class Processor {
 		System.out.println("____________________________________________________________");
 	}
 
-	public void start() { //move stuff here to Angela.java
+	public void start() {
 		Scanner textIn = new Scanner(System.in);
 		String input;
 		do {
