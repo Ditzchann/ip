@@ -31,22 +31,22 @@ public class Output {
 
 	public static void addTaskOutput(int tasksLeft, Task task, String taskType) {
 		switch (taskType) {
-			case "todo":
-				output("Did the Sephira give you a new task again?\n" + task
-						+ "\nTask added, you now have " + tasksLeft
-						+ " tasks left.", true);
-                break;
-			case "deadline":
-				output("A new energy quota to achieve. Please work hard, Manager.\n" + task
-						+ "\nTask added, you now have " + tasksLeft
-						+ " tasks left.", true);
-                break;
-			case "event":
-				output("Dawn arrives, with it comes a new Ordeal. "
-						+ "Please take care of it, Manager.\n" + task
-						+ "\nTask added, you now have " + tasksLeft
-						+ " tasks left.", true);
-                break;
+        case "todo":
+            output("Did the Sephira give you a new task again?\n" + task
+                    + "\nTask added, you now have " + tasksLeft
+                    + " tasks left.", true);
+            break;
+        case "deadline":
+            output("A new energy quota to achieve. Please work hard, Manager.\n" + task
+                    + "\nTask added, you now have " + tasksLeft
+                    + " tasks left.", true);
+            break;
+        case "event":
+            output("Dawn arrives, with it comes a new Ordeal. "
+                    + "Please take care of it, Manager.\n" + task
+                    + "\nTask added, you now have " + tasksLeft
+                    + " tasks left.", true);
+            break;
 		}
 	}
 
@@ -66,5 +66,18 @@ public class Output {
 
     public static void undoneOutput(Task task) {
         output("More work for the Manager. The task has been undone.\n" + task);
+    }
+
+    public static void idleOutput() {
+        output("Did you say something, Manager?", true);
+    }
+
+    public static void errorOutput(AngelaException e) {
+        output(e.getMessage(), true);
+    }
+
+    public static void invalidCommandOutput() {
+        output("Manager, I cannot comprehend your incoherent blabbering.\n"
+                + "Do you require a mental corruption evaluation?", true);
     }
 }
