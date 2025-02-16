@@ -91,6 +91,21 @@ public class Processor {
         }
 	}
 
+    public void deleteTask(List<String> command) throws AngelaException {
+        if (command.size() < 2) {
+            throw new MissingArgumentAngelaException("delete");
+        }
+        try {
+            int input = Integer.parseInt(command.get(1));
+            Task t = store.remove(input - 1);
+            Output.deleteOutput(t, store.size());
+        } catch (NumberFormatException e) {
+            throw new InvalidArgumentAngelaException("unmark");
+        } catch (IndexOutOfBoundsException e) {
+            throw new OutOfBoundsAngelaException();
+        }
+    }
+
 	public List<String> splitInput(String input) {
 		List<String> args = new ArrayList<>();
 		int i = 0;
@@ -146,6 +161,9 @@ public class Processor {
             break;
         case "event":
             addEventTask(command);
+            break;
+        case "delete":
+            deleteTask(command);
             break;
         case "bye":
             return true;

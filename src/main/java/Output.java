@@ -34,18 +34,18 @@ public class Output {
         case "todo":
             output("Did the Sephira give you a new task again?\n" + task
                     + "\nTask added, you now have " + tasksLeft
-                    + " tasks left.", true);
+                    + " task(s) left.", true);
             break;
         case "deadline":
             output("A new energy quota to achieve. Please work hard, Manager.\n" + task
                     + "\nTask added, you now have " + tasksLeft
-                    + " tasks left.", true);
+                    + " task(s) left.", true);
             break;
         case "event":
             output("Dawn arrives, with it comes a new Ordeal. "
                     + "Please take care of it, Manager.\n" + task
                     + "\nTask added, you now have " + tasksLeft
-                    + " tasks left.", true);
+                    + " task(s) left.", true);
             break;
 		}
 	}
@@ -79,5 +79,11 @@ public class Output {
     public static void invalidCommandOutput() {
         output("Manager, I cannot comprehend your incoherent blabbering.\n"
                 + "Do you require a mental corruption evaluation?", true);
+    }
+
+    public static void deleteOutput(Task task, int tasksLeft) {
+        output("As tonight, again the stars are brushed away by the wind.\n"
+                + task + "\nTask removed, you now have " + tasksLeft
+                + " task(s) left.", true);
     }
 }
