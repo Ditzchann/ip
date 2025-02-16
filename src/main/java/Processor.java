@@ -1,26 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Processor {
 	private List<Task> store;
 
 	public Processor()  {
 		store = new ArrayList<>();
-	}
-
-	public static void output(String text, Boolean head) {
-		if (head) {
-			System.out.println("____________________________________________________________");
-		}
-		output(text);
-	}
-
-	public static void output(String text) {
-		System.out.println(text);
-		System.out.println("____________________________________________________________");
 	}
 
 	public void start() {
@@ -32,7 +18,7 @@ public class Processor {
             List<String> command = splitInput(input);
             switch (command.get(0)) {
                 case "list":
-                    printList();
+                    Output.listOutput(store);
                     break;
                 case "mark":
                     markDone(Integer.parseInt(command.get(1)));
@@ -41,13 +27,13 @@ public class Processor {
                     markUndone(Integer.parseInt(command.get(1)));
                     break;
                 case "todo":
-                    addTask(command.get(1));
+                    addTodoTask(command.get(1));
                     break;
                 case "deadline":
-                    addTask(command.get(1), command.get(3));
+                    addDeadlineTask(command.get(1), command.get(3));
                     break;
                 case "event":
-                    addTask(command.get(1), command.get(3), command.get(5));
+                    addEventTask(command.get(1), command.get(3), command.get(5));
                     break;
                 case "bye":
                     bExit = true;
@@ -56,54 +42,42 @@ public class Processor {
         }
 	}
 
-	public void printList() {
-		String out = "";
-		int i = 1;
-		for (Task t: store) {
-			out = out.concat(i + ". " + t.toString() + "\n");
-			i++;
-		}
-		output(out.trim(), true);
-	}
-
-	public void addTask(String input) {
+	public void addTodoTask(String input) {
 		Task t = new ToDoTask((input));
 		store.add(t);
-		output("Did the Sephira give you a new task again?\n" + t +
-				"\nTask added, you now have " + store.size() + " tasks left.", true);
+		Output.addTaskOutput(store.size(), t, "todo");
 	}
 
-	public void addTask(String input, String by) {
+	public void addDeadlineTask(String input, String by) {
 		Task t = new DeadlineTask(input, by);
 		store.add(t);
-		output("A new energy quota to achieve. Please work hard, Manager.\n" + t +
-				"\nTask added, you now have " + store.size() + " tasks left.", true);
+        Output.addTaskOutput(store.size(), t, "deadline");
 	}
 
-	public void addTask(String input, String from, String to) {
+	public void addEventTask(String input, String from, String to) {
 		Task t = new EventTask(input, from, to);
 		store.add(t);
-		output("Dawn arrives, with it comes a new Ordeal. Please take care of it, Manager.\n" + t +
-				"\nTask added, you now have " + store.size() + " tasks left.", true);
+        Output.addTaskOutput(store.size(), t, "event");
 	}
 
 	public void markDone(int input) {
-		//move validation here
 		store.get(input - 1).doTask();
-		output("Exceptional work Manager. The task has been marked as done.\n" + store.get(input - 1));
+        Output.doneOutput(store.get(input - 1));
 	}
 
 	public void markUndone(int input) {
 		store.get(input - 1).undoTask();
-		output("More work for the Manager. The task has been undone.\n" + store.get(input - 1));
+        Output.undoneOutput(store.get(input - 1));
 	}
 
+    /*
 	public void printError(int err) {
 		if (err == 0) {
 			output("Manager, I believe the instructions to use the command was written in the manual.\n" +
 					"Please enter the command with the correct syntax.");
 		}
 	}
+    */
 
 	public List<String> splitInput(String input) {
 		List<String> args = new ArrayList<>();
