@@ -1,11 +1,13 @@
-public class EventTask extends Task {
-	private String from;
-	private String to;
+import java.time.LocalDateTime;
 
-	public EventTask(String name, String from, String to) {
+public class EventTask extends Task {
+	private LocalDateTime from;
+	private LocalDateTime to;
+
+	public EventTask(String name, String from, String to) throws InvalidDateTimeAngelaException {
 		super(name);
-		this.from = from;
-		this.to = to;
+		this.from = parseTime(from);
+		this.to = parseTime(to);
 	}
 
 	@Override

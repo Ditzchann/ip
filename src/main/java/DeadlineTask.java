@@ -1,8 +1,13 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class DeadlineTask extends Task{
-	private String by;
-	public DeadlineTask(String name, String by) {
+	private LocalDateTime by;
+	public DeadlineTask(String name, String by) throws InvalidDateTimeAngelaException {
 		super(name);
-		this.by = by;
+		this.by = parseTime(by);
 	}
 
 	@Override

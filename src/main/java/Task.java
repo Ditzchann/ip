@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Task {
 	private final String name;
 	private boolean done;
@@ -13,6 +17,23 @@ public class Task {
 
 	public void undoTask() {
 		this.done = false;
+	}
+
+	public LocalDateTime parseTime(String time) throws InvalidDateTimeAngelaException {
+		LocalDateTime result;
+		DateTimeFormatter formatter;
+		if (time.length() <= 10) {
+			formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		} else {
+			formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+		}
+		time = time.replaceAll("/","-");
+		try {
+			result = LocalDateTime.parse(time, formatter);
+			return result;
+		} catch (DateTimeParseException e) {
+			throw new InvalidDateTimeAngelaException();
+		}
 	}
 
 	@Override
