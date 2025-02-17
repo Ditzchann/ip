@@ -1,18 +1,28 @@
+import java.lang.annotation.AnnotationFormatError;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 
 public class Processor {
 	private List<Task> store;
+    private Storage storageManager;
 
-	public Processor()  {
+	public Processor(Storage storageManager)  {
 		store = new ArrayList<>();
+        this.storageManager = storageManager;
 	}
 
 	public void start() {
 		Scanner textIn = new Scanner(System.in);
 		String input;
         boolean bExit = false;
+        try {
+            store = storageManager.init();
+        } catch (AngelaException e) {
+            Output.errorOutput(e);
+            bExit = true;
+        }
         while (!bExit) {
             input = textIn.nextLine();
             if (input.isEmpty()) {
@@ -39,26 +49,45 @@ public class Processor {
 	}
 
 	public void addDeadlineTask(List<String> command) throws MissingArgumentAngelaException {
-        if (command.size() < 4) {
-            throw new MissingArgumentAngelaException("deadline");
-        }
-        String input = command.get(1);
-        String by = command.get(3); //check if flag corresponds to correct flag : TBA
-		Task t = new DeadlineTask(input, by);
-		store.add(t);
-        Output.addTaskOutput(store.size(), t, "deadline");
+		try {
+			List<String> args = getArguments(command, List.of("by"));
+			Task t = new DeadlineTask(args.get(0), args.get(1));
+			store.add(t);
+			Output.addTaskOutput(store.size(), t, "deadline");
+		} catch (MissingArgumentAngelaException e) {
+			throw new MissingArgumentAngelaException("deadline");
+		}
 	}
 
 	public void addEventTask(List<String> command) throws MissingArgumentAngelaException {
-        if (command.size() < 6) {
-            throw new MissingArgumentAngelaException("event");
-        }
-        String input = command.get(1);
-        String from = command.get(3);
-        String to = command.get(5);
-		Task t = new EventTask(input, from, to);
-		store.add(t);
-        Output.addTaskOutput(store.size(), t, "event");
+		try {
+			List<String> args = getArguments(command, List.of("from", "to"));
+			Task t = new EventTask(args.get(0), args.get(1), args.get(2));
+			store.add(t);
+			Output.addTaskOutput(store.size(), t, "event");
+		} catch (MissingArgumentAngelaException e) {
+			throw new MissingArgumentAngelaException("event");
+		}
+	}
+
+	public List<String> getArguments(List<String> command, List<String> params) throws MissingArgumentAngelaException {
+		List<String> args = Arrays.asList(new String[params.size() + 1]);
+		if (command.size() < 2) {
+			throw new MissingArgumentAngelaException(command.get(0));
+		} else {
+			args.set(0, command.get(1));
+		}
+		for (int k = 2; k < command.size(); k += 2) {
+			String temp = command.get(k);
+			if (params.contains(temp)) {
+				args.set(params.indexOf(temp) + 1, command.get(k + 1));
+			}
+		}
+		if (args.contains(null)) {
+			throw new MissingArgumentAngelaException(command.get(0));
+		} else {
+			return args;
+		}
 	}
 
 	public void markDone(List<String> command) throws AngelaException {
@@ -170,6 +199,7 @@ public class Processor {
         default:
             Output.invalidCommandOutput();
         }
+        storageManager.save(store);
         return false;
     }
 }
