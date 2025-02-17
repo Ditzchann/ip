@@ -3,7 +3,8 @@ import java.util.List;
 
 public class Angela {
     public static void main(String[] args) {
-        Processor process = new Processor();
+        Storage storage = new Storage();
+        Processor process = new Processor(storage);
         Output.introOutput();
         process.start();
         exit();

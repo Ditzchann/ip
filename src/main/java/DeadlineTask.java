@@ -9,4 +9,9 @@ public class DeadlineTask extends Task{
 	public String toString() {
 		return "[D]" + super.toString()  + " (by: " + by + ")";
 	}
+
+	@Override
+	public String stringify() {
+		return "D||" + super.stringify() + "||" + this.by;
+	}
 }
