@@ -49,7 +49,7 @@ public class Task {
 	}
 
 	public String dateToString(LocalDate date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 		return date.format(formatter);
 	}
 

@@ -4,7 +4,9 @@ import java.util.List;
 public class Angela {
     public static void main(String[] args) {
         Storage storage = new Storage();
-        Processor process = new Processor(storage);
+        TaskManager manager = new TaskManager();
+        Parser parser = new Parser();
+        Processor process = new Processor(storage, manager, parser);
         Output.introOutput();
         process.start();
         exit();
