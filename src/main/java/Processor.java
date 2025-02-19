@@ -61,7 +61,7 @@ public class Processor {
 		}
 	}
 
-	public void addEventTask(List<String> command) throws MissingArgumentAngelaException {
+	public void addEventTask(List<String> command) throws AngelaException {
 		try {
 			List<String> args = getArguments(command, List.of("from", "to"));
 			Task t = new EventTask(args.get(0), args.get(1), args.get(2));

@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -19,17 +19,12 @@ public class Task {
 		this.done = false;
 	}
 
-	public LocalDateTime parseTime(String time) throws InvalidDateTimeAngelaException {
-		LocalDateTime result;
+	public LocalDate parseTime(String time) throws InvalidDateTimeAngelaException {
+		LocalDate result;
 		DateTimeFormatter formatter;
-		if (time.length() <= 10) {
-			formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-		} else {
-			formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-		}
-		time = time.replaceAll("/","-");
+		formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		try {
-			result = LocalDateTime.parse(time, formatter);
+			result = LocalDate.parse(time.trim(), formatter);
 			return result;
 		} catch (DateTimeParseException e) {
 			throw new InvalidDateTimeAngelaException();
@@ -51,5 +46,16 @@ public class Task {
 	public String stringify() {
 		String doneString = this.done ? "1" : "0";
 		return this.name + "||" +  doneString;
+	}
+
+	public String dateToString(LocalDate date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+		return date.format(formatter);
+	}
+
+
+	public String dateToData(LocalDate date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		return date.format(formatter);
 	}
 }

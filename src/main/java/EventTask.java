@@ -1,8 +1,9 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
-	private LocalDateTime from;
-	private LocalDateTime to;
+	private LocalDate from;
+	private LocalDate to;
 
 	public EventTask(String name, String from, String to) throws InvalidDateTimeAngelaException {
 		super(name);
@@ -12,7 +13,7 @@ public class EventTask extends Task {
 
 	@Override
 	public String toString() {
-		return "[E]" + super.toString()  + " (from: " + from + " to " + to + ")";
+		return "[E]" + super.toString()  + " (from: " + dateToString(this.from) + " to " + dateToString(this.to) + ")";
 	}
 
 	@Override
