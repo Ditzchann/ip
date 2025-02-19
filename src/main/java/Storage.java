@@ -3,6 +3,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Storage {
@@ -26,14 +27,14 @@ public class Storage {
         try {
             Files.createDirectories(dirPath);
         } catch (IOException e) {
-            throw new AngelaException("");
+            throw new AngelaException("a");
         }
     }
     public void createSave() throws AngelaException {
         try {
             Files.createFile(filePath);
         } catch (IOException e) {
-            throw new AngelaException("");
+            throw new AngelaException("b");
         }
     }
 
@@ -42,11 +43,13 @@ public class Storage {
         try {
             List<String> db = Files.readAllLines(filePath);
             for (String line: db) {
-                Task t = processDb(line); //probably should handle some error here
-                store.add(t);
+                if (!line.isEmpty()) {
+                    Task t = processDb(line); //probably should handle some error here
+                    store.add(t);
+                }
             }
         } catch (IOException e) {
-            throw new AngelaException("");
+            throw new AngelaException("c");
         }
         return store;
     }
@@ -58,7 +61,7 @@ public class Storage {
             case "T" -> new ToDoTask(lineArr[2]);
             case "D" -> new DeadlineTask(lineArr[2], lineArr[3]);
             case "E" -> new EventTask(lineArr[2], lineArr[3], lineArr[4]);
-            default -> throw new AngelaException("");
+            default -> throw new AngelaException("d");
         };
         if (lineArr[1].equals("1")) t.doTask();
         return t;
@@ -73,7 +76,7 @@ public class Storage {
             Files.writeString(filePath, toWrite.toString(),
                     StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            throw new AngelaException("");
+            throw new AngelaException("e");
         }
     }
 }

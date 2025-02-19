@@ -1,4 +1,6 @@
-import java.lang.annotation.AnnotationFormatError;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -48,7 +50,7 @@ public class Processor {
 		Output.addTaskOutput(store.size(), t, "todo");
 	}
 
-	public void addDeadlineTask(List<String> command) throws MissingArgumentAngelaException {
+	public void addDeadlineTask(List<String> command) throws AngelaException {
 		try {
 			List<String> args = getArguments(command, List.of("by"));
 			Task t = new DeadlineTask(args.get(0), args.get(1));
@@ -59,7 +61,7 @@ public class Processor {
 		}
 	}
 
-	public void addEventTask(List<String> command) throws MissingArgumentAngelaException {
+	public void addEventTask(List<String> command) throws AngelaException {
 		try {
 			List<String> args = getArguments(command, List.of("from", "to"));
 			Task t = new EventTask(args.get(0), args.get(1), args.get(2));
