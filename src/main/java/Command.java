@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Command {
@@ -30,5 +32,17 @@ public class Command {
 
     public String getArg(String parameter) {
         return args.get(parameter);
+    }
+
+    public List<String> getArguments(List<String> params) throws MissingArgumentAngelaException {
+        List<String> returnList = Arrays.asList(new String[params.size()]);
+        for (int i = 0; i < params.size(); i++) {
+            returnList.set(i, this.args.get(params.get(i)));
+        }
+        if (returnList.contains(null)) {
+            throw new MissingArgumentAngelaException(this.name);
+        } else {
+            return returnList;
+        }
     }
 }

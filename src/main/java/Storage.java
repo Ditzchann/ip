@@ -67,13 +67,9 @@ public class Storage {
         return t;
     }
 
-    public void save(List<Task> store) throws AngelaException {
-        StringBuilder toWrite = new StringBuilder();
-        for (Task t: store) {
-            toWrite.append(t.stringify()).append("\n");
-        }
+    public void save(String toWrite) throws AngelaException {
         try  {
-            Files.writeString(filePath, toWrite.toString(),
+            Files.writeString(filePath, toWrite,
                     StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
         } catch (IOException e) {
             throw new AngelaException("e");
