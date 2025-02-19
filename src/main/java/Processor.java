@@ -9,10 +9,14 @@ import java.util.List;
 public class Processor {
 	private List<Task> store;
     private Storage storageManager;
+    private TaskManager manager;
+    private Parser parser;
 
-	public Processor(Storage storageManager)  {
+	public Processor(Storage storageManager, TaskManager manager, Parser parser)  {
 		store = new ArrayList<>();
         this.storageManager = storageManager;
+        this.parser = parser;
+        this.manager = manager;
 	}
 
 	public void start() {
@@ -40,20 +44,20 @@ public class Processor {
         }
 	}
 
-	public void addTodoTask(List<String> command) throws MissingArgumentAngelaException {
-        if (command.size() < 2) {
+	public void addTodoTask(Command command) throws MissingArgumentAngelaException {
+        if (command.getMainArg().isEmpty()) {
             throw new MissingArgumentAngelaException("todo");
         }
-        String input = command.get(1);
+        String input = command.getMainArg();
 		Task t = new ToDoTask((input));
 		store.add(t);
 		Output.addTaskOutput(store.size(), t, "todo");
 	}
 
-	public void addDeadlineTask(List<String> command) throws AngelaException {
+	public void addDeadlineTask(Command command) throws AngelaException {
 		try {
 			List<String> args = getArguments(command, List.of("by"));
-			Task t = new DeadlineTask(args.get(0), args.get(1));
+			Task t = new DeadlineTask(command.getMainArg(), args.get(0));
 			store.add(t);
 			Output.addTaskOutput(store.size(), t, "deadline");
 		} catch (MissingArgumentAngelaException e) {
@@ -61,10 +65,10 @@ public class Processor {
 		}
 	}
 
-	public void addEventTask(List<String> command) throws AngelaException {
+	public void addEventTask(Command command) throws AngelaException {
 		try {
 			List<String> args = getArguments(command, List.of("from", "to"));
-			Task t = new EventTask(args.get(0), args.get(1), args.get(2));
+			Task t = new EventTask(command.getMainArg(), args.get(0), args.get(1));
 			store.add(t);
 			Output.addTaskOutput(store.size(), t, "event");
 		} catch (MissingArgumentAngelaException e) {
@@ -72,32 +76,24 @@ public class Processor {
 		}
 	}
 
-	public List<String> getArguments(List<String> command, List<String> params) throws MissingArgumentAngelaException {
-		List<String> args = Arrays.asList(new String[params.size() + 1]);
-		if (command.size() < 2) {
-			throw new MissingArgumentAngelaException(command.get(0));
-		} else {
-			args.set(0, command.get(1));
-		}
-		for (int k = 2; k < command.size(); k += 2) {
-			String temp = command.get(k);
-			if (params.contains(temp)) {
-				args.set(params.indexOf(temp) + 1, command.get(k + 1));
-			}
-		}
+	public List<String> getArguments(Command command, List<String> params) throws MissingArgumentAngelaException {
+        List<String> args = Arrays.asList(new String[params.size()]);
+		for (int i = 0; i < args.size(); i++) {
+            args.set(i, command.getArg(params.get(i)));
+        }
 		if (args.contains(null)) {
-			throw new MissingArgumentAngelaException(command.get(0));
+			throw new MissingArgumentAngelaException(command.getName());
 		} else {
 			return args;
 		}
 	}
 
-	public void markDone(List<String> command) throws AngelaException {
-        if (command.size() < 2) {
+	public void markDone(Command command) throws AngelaException {
+        if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("mark");
         }
         try {
-            int input = Integer.parseInt(command.get(1));
+            int input = Integer.parseInt(command.getMainArg());
             store.get(input - 1).doTask();
             Output.doneOutput(store.get(input - 1));
         } catch (NumberFormatException e) {
@@ -107,12 +103,12 @@ public class Processor {
         }
 	}
 
-	public void markUndone(List<String> command) throws AngelaException {
-        if (command.size() < 2) {
+	public void markUndone(Command command) throws AngelaException {
+        if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("unmark");
         }
         try {
-            int input = Integer.parseInt(command.get(1));
+            int input = Integer.parseInt(command.getMainArg());
             store.get(input - 1).undoTask();
             Output.undoneOutput(store.get(input - 1));
         } catch (NumberFormatException e) {
@@ -122,12 +118,12 @@ public class Processor {
         }
 	}
 
-    public void deleteTask(List<String> command) throws AngelaException {
-        if (command.size() < 2) {
+    public void deleteTask(Command command) throws AngelaException {
+        if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("delete");
         }
         try {
-            int input = Integer.parseInt(command.get(1));
+            int input = Integer.parseInt(command.getMainArg());
             Task t = store.remove(input - 1);
             Output.deleteOutput(t, store.size());
         } catch (NumberFormatException e) {
@@ -172,9 +168,11 @@ public class Processor {
     }
 
     public boolean processCommand(String input) throws AngelaException {
-        List<String> command;
-        command = splitInput(input);
-        switch (command.get(0)) {
+        List<String> commandList;
+        commandList = splitInput(input);
+        Command command = listToCommand(commandList);
+        String commandName = command.getName();
+        switch (commandName) {
         case "list":
             Output.listOutput(store);
             break;
@@ -203,5 +201,29 @@ public class Processor {
         }
         storageManager.save(store);
         return false;
+    }
+
+    public Command listToCommand(List<String> commandList) {
+        try {
+            Command command;
+            if (commandList.size() >= 2){
+                command = new Command(commandList.get(0), commandList.get(1));
+            } else {
+                command = new Command(commandList.get(0), "");
+            }
+            for (int i = 2; i < commandList.size(); i += 2) {
+                String para = commandList.get(i);
+                String arg;
+                if (commandList.size() < i + 1) {
+                    arg = "";
+                } else {
+                    arg = commandList.get(i + 1);
+                }
+                command.addArg(para, arg);
+            }
+            return command;
+        } catch (IndexOutOfBoundsException e) {
+            return new Command("", "");
+        }
     }
 }
