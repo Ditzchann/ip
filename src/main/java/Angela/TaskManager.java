@@ -15,6 +15,7 @@ import java.util.List;
 public class TaskManager {
 
     private List<Task> store;
+
     public TaskManager() {
         store = new ArrayList<>();
     }

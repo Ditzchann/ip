@@ -2,7 +2,10 @@ package Angela;
 
 import Angela.exception.MissingArgumentAngelaException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.Arrays;
 
 public class Command {
     private String name;
@@ -25,14 +28,6 @@ public class Command {
 
     public void addArg(String parameter, String arg) {
         args.put(parameter, arg);
-    }
-
-    public boolean checkParameter(String parameter) {
-        return args.containsKey(parameter);
-    }
-
-    public String getArg(String parameter) {
-        return args.get(parameter);
     }
 
     public List<String> getArguments(List<String> params) throws MissingArgumentAngelaException {
