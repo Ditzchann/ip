@@ -63,6 +63,9 @@ public class Processor {
         case "delete":
             manager.deleteTask(command);
             break;
+        case "find":
+            manager.findTask(command);
+            break;
         case "bye":
             return true;
         default:

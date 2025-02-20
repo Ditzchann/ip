@@ -105,6 +105,19 @@ public class TaskManager {
         }
     }
 
+    public void findTask(Command command) throws MissingArgumentAngelaException {
+        if (command.getMainArg().isEmpty()) {
+            throw new MissingArgumentAngelaException("find");
+        }
+        String find = command.getMainArg();
+        List<Task> found = new ArrayList<>();
+        for (Task t: store) {
+            if (t.containsKeyword(find)) {
+                found.add(t);
+            }
+        }
+        Output.findOutput(found);
+    }
     public String tasksToString() {
         StringBuilder toWrite = new StringBuilder();
         for (Task t: store) {
