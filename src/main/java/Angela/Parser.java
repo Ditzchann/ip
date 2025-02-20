@@ -59,7 +59,7 @@ public class Parser {
             for (int i = 2; i < commandList.size(); i += 2) {
                 String para = commandList.get(i);
                 String arg;
-                if (commandList.size() < i + 1) {
+                if (i + 1 >= commandList.size()) {
                     arg = "";
                 } else {
                     arg = commandList.get(i + 1);

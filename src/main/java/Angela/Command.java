@@ -1,10 +1,8 @@
 package Angela;
 
 import Angela.exception.MissingArgumentAngelaException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class Command {
     private String name;
@@ -47,5 +45,20 @@ public class Command {
         } else {
             return returnList;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Command command) {
+            return this.name.equals(command.name) && this.mainArg.equals(command.mainArg)
+                    && this.args.equals(command.args);
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.mainArg
+                + " " + this.args.toString();
     }
 }
