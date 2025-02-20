@@ -2,7 +2,10 @@ package Angela;
 
 import Angela.exception.MissingArgumentAngelaException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * Represents a command line given by the user. A command object is represented by its name,
@@ -31,14 +34,6 @@ public class Command {
         args.put(parameter, arg);
     }
 
-    public boolean checkParameter(String parameter) {
-        return args.containsKey(parameter);
-    }
-
-    public String getArg(String parameter) {
-        return args.get(parameter);
-    }
-
     /**
      * Extracts arguments labelled by parameters in params from the command
      * and returns them in the same order.
@@ -46,6 +41,7 @@ public class Command {
      * @return List of extracted arguments in the same order as the parameter list
      * @throws MissingArgumentAngelaException If command does not contain required parameters
      */
+
     public List<String> getArguments(List<String> params) throws MissingArgumentAngelaException {
         List<String> returnList = Arrays.asList(new String[params.size()]);
         for (int i = 0; i < params.size(); i++) {

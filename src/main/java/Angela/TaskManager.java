@@ -19,6 +19,7 @@ import java.util.List;
 public class TaskManager {
 
     private List<Task> store;
+
     public TaskManager() {
         store = new ArrayList<>();
     }
@@ -140,6 +141,20 @@ public class TaskManager {
         }
     }
 
+    public void findTask(Command command) throws MissingArgumentAngelaException {
+        if (command.getMainArg().isEmpty()) {
+            throw new MissingArgumentAngelaException("find");
+        }
+        String find = command.getMainArg();
+        List<Task> found = new ArrayList<>();
+        for (Task t: store) {
+            if (t.containsKeyword(find)) {
+                found.add(t);
+            }
+        }
+        Output.findOutput(found);
+    }
+  
     /**
      * Returns the string format of how tasks are represented when stored in storage
      * @return Tasks represented as string data

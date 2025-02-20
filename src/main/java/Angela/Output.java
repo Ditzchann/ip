@@ -9,8 +9,8 @@ import java.util.List;
  * Class that handles output to user
  */
 public class Output {
-	public Output() {
 
+	public Output() {
 	}
 
 	private static void output(String text, Boolean head) {
@@ -41,31 +41,35 @@ public class Output {
 		switch (taskType) {
         case "todo":
             output("Did the Sephira give you a new task again?\n" + task
-                    + "\nAngela.task.Task added, you now have " + tasksLeft
+                    + "\nTask added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
         case "deadline":
             output("A new energy quota to achieve. Please work hard, Manager.\n" + task
-                    + "\nAngela.task.Task added, you now have " + tasksLeft
+                    + "\nTask added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
         case "event":
             output("Dawn arrives, with it comes a new Ordeal. "
                     + "Please take care of it, Manager.\n" + task
-                    + "\nAngela.task.Task added, you now have " + tasksLeft
+                    + "\nTask added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
 		}
 	}
 
     public static void listOutput(List<Task> store) {
+        output(storeToString(store).trim(), true);
+    }
+
+    public static String storeToString(List<Task> store) {
         String out = "";
         int i = 1;
         for (Task t: store) {
             out = out.concat(i + ". " + t.toString() + "\n");
             i++;
         }
-        output(out.trim(), true);
+        return out;
     }
 
     public static void doneOutput(Task task) {
@@ -91,7 +95,12 @@ public class Output {
 
     public static void deleteOutput(Task task, int tasksLeft) {
         output("As tonight, again the stars are brushed away by the wind.\n"
-                + task + "\nAngela.task.Task removed, you now have " + tasksLeft
+                + task + "\nTask removed, you now have " + tasksLeft
                 + " task(s) left.", true);
+    }
+
+    public static void findOutput(List<Task> store) {
+        output("Save your thanks. Such a task is trivial for an AI like me.\n"
+                + storeToString(store), true);
     }
 }

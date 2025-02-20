@@ -5,6 +5,7 @@ import Angela.exception.InvalidDateTimeAngelaException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Represents a task that the user can do. A Task object is represented
@@ -53,7 +54,7 @@ public class Task {
 
 	public String stringify() {
 		String doneString = this.done ? "1" : "0";
-		return this.name + "||" +  doneString;
+		return doneString + "||" + this.name ;
 	}
 
 	public String dateToString(LocalDate date) {
@@ -65,5 +66,14 @@ public class Task {
 	public String dateToData(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		return date.format(formatter);
+	}
+
+	/**
+	 * Checks if task name contains given keyword
+	 * @param keyword Keyword to check
+	 * @return true if this.name contains keyword
+	 */
+	public boolean containsKeyword(String keyword) {
+		return this.name.contains(keyword);
 	}
 }
