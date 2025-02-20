@@ -5,8 +5,8 @@ import Angela.task.Task;
 
 import java.util.List;
 public class Output {
-	public Output() {
 
+	public Output() {
 	}
 
 	private static void output(String text, Boolean head) {
