@@ -141,6 +141,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Searches and outputs Task objects that match provided keyword
+     * @param command Parsed command from user
+     * @throws MissingArgumentAngelaException If not enough arguments are provided
+     */
     public void findTask(Command command) throws MissingArgumentAngelaException {
         if (command.getMainArg().isEmpty()) {
             throw new MissingArgumentAngelaException("find");
