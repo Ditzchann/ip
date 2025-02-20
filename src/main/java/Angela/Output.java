@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package Angela;
+
+import Angela.exception.AngelaException;
+import Angela.task.Task;
+
 import java.util.List;
 public class Output {
 	public Output() {
@@ -33,18 +37,18 @@ public class Output {
 		switch (taskType) {
         case "todo":
             output("Did the Sephira give you a new task again?\n" + task
-                    + "\nTask added, you now have " + tasksLeft
+                    + "\nAngela.task.Task added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
         case "deadline":
             output("A new energy quota to achieve. Please work hard, Manager.\n" + task
-                    + "\nTask added, you now have " + tasksLeft
+                    + "\nAngela.task.Task added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
         case "event":
             output("Dawn arrives, with it comes a new Ordeal. "
                     + "Please take care of it, Manager.\n" + task
-                    + "\nTask added, you now have " + tasksLeft
+                    + "\nAngela.task.Task added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
 		}
@@ -83,7 +87,7 @@ public class Output {
 
     public static void deleteOutput(Task task, int tasksLeft) {
         output("As tonight, again the stars are brushed away by the wind.\n"
-                + task + "\nTask removed, you now have " + tasksLeft
+                + task + "\nAngela.task.Task removed, you now have " + tasksLeft
                 + " task(s) left.", true);
     }
 }
