@@ -1,3 +1,5 @@
+package Angela.exception;
+
 public class InvalidArgumentAngelaException extends AngelaException {
 
     public InvalidArgumentAngelaException(String command) {

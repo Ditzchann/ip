@@ -1,3 +1,5 @@
+package Angela.exception;
+
 public class OutOfBoundsAngelaException extends AngelaException {
 
     public OutOfBoundsAngelaException() {

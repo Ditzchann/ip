@@ -1,3 +1,14 @@
+package Angela;
+
+import Angela.exception.AngelaException;
+import Angela.exception.InvalidArgumentAngelaException;
+import Angela.exception.MissingArgumentAngelaException;
+import Angela.exception.OutOfBoundsAngelaException;
+import Angela.task.DeadlineTask;
+import Angela.task.EventTask;
+import Angela.task.Task;
+import Angela.task.ToDoTask;
+
 import java.util.ArrayList;
 import java.util.List;
 

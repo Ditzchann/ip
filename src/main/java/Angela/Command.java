@@ -1,3 +1,6 @@
+package Angela;
+
+import Angela.exception.MissingArgumentAngelaException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

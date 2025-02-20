@@ -1,10 +1,7 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
+package Angela;
+import Angela.exception.AngelaException;
+
 import java.util.Scanner;
-import java.util.List;
 
 public class Processor {
     private Storage storageManager;
@@ -12,7 +9,6 @@ public class Processor {
     private Parser parser;
 
 	public Processor(Storage storageManager, TaskManager manager, Parser parser)  {
-		store = new ArrayList<>();
         this.storageManager = storageManager;
         this.parser = parser;
         this.manager = manager;
