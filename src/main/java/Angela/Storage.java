@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that handles interactions with local storage.
+ * Stores and retrieves tasks from local storage
+ */
+
 public class Storage {
 	Path filePath;
     Path dirPath;
@@ -29,21 +34,36 @@ public class Storage {
         return loadSave();
 	}
 
+    /**
+     * Creates a directory for saved data if not present
+     * @throws AngelaException If directory cannot be created
+     */
     public void createDir() throws AngelaException {
         try {
             Files.createDirectories(dirPath);
         } catch (IOException e) {
-            throw new AngelaException("a");
+            throw new AngelaException("");
         }
     }
+
+    /**
+     * Creates file to save data if not present
+     * @throws AngelaException If file cannot be created
+     */
     public void createSave() throws AngelaException {
         try {
             Files.createFile(filePath);
         } catch (IOException e) {
-            throw new AngelaException("b");
+            throw new AngelaException("");
         }
     }
 
+    /**
+     * Returns loaded tasks from file at filePath
+     * If tasks do not exist, empty List<Task> is returned
+     * @return List of tasks retrieved from file
+     * @throws AngelaException If directory cannot be created
+     */
     public List<Task> loadSave() throws AngelaException {
         List<Task> store = new ArrayList<>();
         try {
@@ -55,11 +75,18 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new AngelaException("c");
+            throw new AngelaException("");
         }
         return store;
     }
 
+    /**
+     * Reads given line from file and converts it into a Task object
+     * Returns Task object converted from line
+     * @param line Line read from file
+     * @return Processed task
+     * @throws AngelaException If file data not in correct format
+     */
     public Task processDb(String line) throws AngelaException {
         Task t;
         String[] lineArr = line.split("\\|\\|"); //no way malicious injection is real
@@ -67,18 +94,23 @@ public class Storage {
             case "T" -> new ToDoTask(lineArr[2]);
             case "D" -> new DeadlineTask(lineArr[2], lineArr[3]);
             case "E" -> new EventTask(lineArr[2], lineArr[3], lineArr[4]);
-            default -> throw new AngelaException("d");
+            default -> throw new AngelaException("");
         };
         if (lineArr[1].equals("1")) t.doTask();
         return t;
     }
 
+    /**
+     * Saves data string into file
+     * @param toWrite String data to be written into file
+     * @throws AngelaException If write cannot be performed
+     */
     public void save(String toWrite) throws AngelaException {
         try  {
             Files.writeString(filePath, toWrite,
                     StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
         } catch (IOException e) {
-            throw new AngelaException("e");
+            throw new AngelaException("");
         }
     }
 }

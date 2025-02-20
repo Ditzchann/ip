@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.List;
 import java.util.Arrays;
 
+/**
+ * Represents a command line given by the user. A command object is represented by its name,
+ * main argument, and its additional arguments labeled by their parameters.
+ */
 public class Command {
     private String name;
     private String mainArg;
@@ -29,6 +33,14 @@ public class Command {
     public void addArg(String parameter, String arg) {
         args.put(parameter, arg);
     }
+
+    /**
+     * Extracts arguments labelled by parameters in params from the command
+     * and returns them in the same order.
+     * @param params List of parameters to search
+     * @return List of extracted arguments in the same order as the parameter list
+     * @throws MissingArgumentAngelaException If command does not contain required parameters
+     */
 
     public List<String> getArguments(List<String> params) throws MissingArgumentAngelaException {
         List<String> returnList = Arrays.asList(new String[params.size()]);

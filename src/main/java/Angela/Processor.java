@@ -1,8 +1,16 @@
 package Angela;
 import Angela.exception.AngelaException;
+import Angela.exception.MissingArgumentAngelaException;
+import Angela.exception.InvalidArgumentAngelaException;
+import Angela.exception.InvalidDateTimeAngelaException;
+import Angela.exception.OutOfBoundsAngelaException;
 
 import java.util.Scanner;
 
+/**
+ * Central class responsible for handling information passing from one class to another.
+ * Takes in input from user and calls corresponding method in associated class.
+ */
 public class Processor {
     private Storage storageManager;
     private TaskManager manager;
@@ -39,6 +47,15 @@ public class Processor {
         }
 	}
 
+    /**
+     *
+     * @param input User input as a string
+     * @return true if exit command is given
+     * @throws MissingArgumentAngelaException If argument is missing
+     * @throws InvalidDateTimeAngelaException If dateTime not in correct format
+     * @throws OutOfBoundsAngelaException If index given is out of bounds
+     * @throws InvalidArgumentAngelaException If argument is not a number
+     */
     public boolean processCommand(String input) throws AngelaException {
         Command command = parser.parseCommand(input);
         switch (command.getName()) {
