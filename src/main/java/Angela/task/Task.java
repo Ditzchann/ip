@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task that the user can do. A Task object is represented
+ * by its name and whether it is done
+ */
 public class Task {
 	private final String name;
 	private boolean done;

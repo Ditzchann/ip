@@ -3,11 +3,20 @@ package Angela;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parsing class that handles conversion from String to Command
+ */
 public class Parser {
 
     public Parser() {
     }
 
+    /**
+     * Parses input string into Command object
+     * Returns Command object of specified string
+     * @param input Input string
+     * @return Created command object
+     */
     public Command parseCommand(String input){
         List<String> commandList;
         commandList = splitInput(input);

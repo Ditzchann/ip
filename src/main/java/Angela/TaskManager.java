@@ -4,6 +4,7 @@ import Angela.exception.AngelaException;
 import Angela.exception.InvalidArgumentAngelaException;
 import Angela.exception.MissingArgumentAngelaException;
 import Angela.exception.OutOfBoundsAngelaException;
+import Angela.exception.InvalidDateTimeAngelaException;
 import Angela.task.DeadlineTask;
 import Angela.task.EventTask;
 import Angela.task.Task;
@@ -12,6 +13,9 @@ import Angela.task.ToDoTask;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class to manage and store tasks.
+ */
 public class TaskManager {
 
     private List<Task> store;
@@ -27,6 +31,11 @@ public class TaskManager {
         Output.listOutput(store);
     }
 
+    /**
+     * Sets task to done after validating input from user
+     * @param command Parsed command from user
+     * @throws AngelaException If input is invalid
+     */
     public void markDone(Command command) throws AngelaException {
         if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("mark");
@@ -42,6 +51,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Sets task to not done after validating input from user
+     * @param command Parsed command from user
+     * @throws AngelaException If input is invalid
+     */
     public void markUndone(Command command) throws AngelaException {
         if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("unmark");
@@ -57,6 +71,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Deletes task from storage
+     * @param command Parsed command from user
+     * @throws AngelaException If input is invalid
+     */
     public void deleteTask(Command command) throws AngelaException {
         if (command.getMainArg().isBlank()) {
             throw new MissingArgumentAngelaException("delete");
@@ -72,6 +91,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a ToDoTask to the storage
+     * @param command Parsed command from user
+     * @throws MissingArgumentAngelaException If not enough arguments are provided
+     */
     public void addTodoTask(Command command) throws MissingArgumentAngelaException {
         if (command.getMainArg().isEmpty()) {
             throw new MissingArgumentAngelaException("todo");
@@ -82,6 +106,12 @@ public class TaskManager {
         Output.addTaskOutput(store.size(), t, "todo");
     }
 
+    /**
+     * Adds a DeadlineTask to the storage
+     * @param command Parsed command from user
+     * @throws MissingArgumentAngelaException If not enough arguments are provided
+     * @throws InvalidDateTimeAngelaException If time format is wrong
+     */
     public void addDeadlineTask(Command command) throws AngelaException {
         try {
             List<String> args = command.getArguments(List.of("by"));
@@ -93,6 +123,12 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Adds a EventTask to the storage
+     * @param command Parsed command from user
+     * @throws MissingArgumentAngelaException If not enough arguments are provided
+     * @throws InvalidDateTimeAngelaException If time format is wrong
+     */
     public void addEventTask(Command command) throws AngelaException {
         try {
             List<String> args = command.getArguments(List.of("from", "to"));
@@ -104,6 +140,10 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Returns the string format of how tasks are represented when stored in storage
+     * @return Tasks represented as string data
+     */
     public String tasksToString() {
         StringBuilder toWrite = new StringBuilder();
         for (Task t: store) {

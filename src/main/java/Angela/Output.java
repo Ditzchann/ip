@@ -4,6 +4,10 @@ import Angela.exception.AngelaException;
 import Angela.task.Task;
 
 import java.util.List;
+
+/**
+ * Class that handles output to user
+ */
 public class Output {
 	public Output() {
 
