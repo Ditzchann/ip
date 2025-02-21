@@ -1,14 +1,14 @@
-package Angela;
-import Angela.Command;
+package angelapackage;
 
-import Angela.exception.MissingArgumentAngelaException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import angelapackage.exception.MissingArgumentAngelaException;
 
 public class CommandTest {
     @Test
@@ -21,7 +21,7 @@ public class CommandTest {
         exp.add("1");
         try {
             assertEquals(command.getArguments(flags), exp);
-        } catch (MissingArgumentAngelaException e){
+        } catch (MissingArgumentAngelaException e) {
             fail();
         }
     }
@@ -40,7 +40,7 @@ public class CommandTest {
         exp.add("2");
         try {
             assertEquals(command.getArguments(flags), exp);
-        } catch (MissingArgumentAngelaException e){
+        } catch (MissingArgumentAngelaException e) {
             fail();
         }
     }
@@ -55,7 +55,7 @@ public class CommandTest {
         exp.add("2");
         try {
             assertEquals(command.getArguments(flags), exp);
-        } catch (MissingArgumentAngelaException e){
+        } catch (MissingArgumentAngelaException e) {
             fail();
         }
     }
@@ -69,7 +69,7 @@ public class CommandTest {
         try {
             command.getArguments(flags);
             fail();
-        } catch (MissingArgumentAngelaException e){
+        } catch (MissingArgumentAngelaException e) {
             assertEquals(new MissingArgumentAngelaException("test").getMessage(), e.getMessage());
         }
     }
@@ -83,7 +83,7 @@ public class CommandTest {
         try {
             command.getArguments(flags);
             fail();
-        } catch (MissingArgumentAngelaException e){
+        } catch (MissingArgumentAngelaException e) {
             assertEquals(new MissingArgumentAngelaException("test").getMessage(), e.getMessage());
         }
     }

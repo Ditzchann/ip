@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
@@ -28,12 +29,16 @@ test {
 }
 
 application {
-    mainClass.set("Angela.Angela")
+    mainClass.set("angelapackage.Angela")
 }
 
 shadowJar {
     archiveBaseName = "Angela"
     archiveClassifier = null
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 run{

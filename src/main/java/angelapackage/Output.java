@@ -1,44 +1,45 @@
-package Angela;
-
-import Angela.exception.AngelaException;
-import Angela.task.Task;
+package angelapackage;
 
 import java.util.List;
+
+import angelapackage.exception.AngelaException;
+import angelapackage.task.Task;
+
 
 /**
  * Class that handles output to user
  */
 public class Output {
 
-	public Output() {
-	}
+    public Output() {
 
-	private static void output(String text, Boolean head) {
-		if (head) {
-			System.out.println("____________________________________________________________");
-		}
-		output(text);
-	}
+    }
+    private static void output(String text, Boolean head) {
+        if (head) {
+            System.out.println("____________________________________________________________");
+        }
+        output(text);
+    }
 
-	private static void output(String text) {
-		System.out.println(text);
-		System.out.println("____________________________________________________________");
-	}
+    private static void output(String text) {
+        System.out.println(text);
+        System.out.println("____________________________________________________________");
+    }
 
-	public static void introOutput() {
-		output("""
-				Hello X. I am Angela, your advisor and secretary.
-				My role as an AI is to assist you in adjusting to your
-				new workplace.
-				What can I do for you, Manager?""", true);
-	}
+    public static void introOutput() {
+        output("""
+                Hello X. I am Angela, your advisor and secretary.
+                My role as an AI is to assist you in adjusting to your
+                new workplace.
+                What can I do for you, Manager?""", true);
+    }
 
-	public static void exitOutput() {
-		output("Thank you for your hard work, Manager.");
-	}
+    public static void exitOutput() {
+        output("Thank you for your hard work, Manager.");
+    }
 
-	public static void addTaskOutput(int tasksLeft, Task task, String taskType) {
-		switch (taskType) {
+    public static void addTaskOutput(int tasksLeft, Task task, String taskType) {
+        switch (taskType) {
         case "todo":
             output("Did the Sephira give you a new task again?\n" + task
                     + "\nTask added, you now have " + tasksLeft
@@ -55,8 +56,10 @@ public class Output {
                     + "\nTask added, you now have " + tasksLeft
                     + " task(s) left.", true);
             break;
-		}
-	}
+
+        default:
+        }
+    }
 
     public static void listOutput(List<Task> store) {
         output(storeToString(store).trim(), true);

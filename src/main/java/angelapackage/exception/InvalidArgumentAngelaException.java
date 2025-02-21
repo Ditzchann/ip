@@ -1,4 +1,4 @@
-package Angela.exception;
+package angelapackage.exception;
 
 public class InvalidArgumentAngelaException extends AngelaException {
 

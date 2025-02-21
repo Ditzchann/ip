@@ -1,16 +1,18 @@
-package Angela;
+package angelapackage;
 
-import Angela.exception.AngelaException;
-import Angela.task.DeadlineTask;
-import Angela.task.EventTask;
-import Angela.task.Task;
-import Angela.task.ToDoTask;
-
-import java.nio.file.*;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import angelapackage.exception.AngelaException;
+import angelapackage.task.DeadlineTask;
+import angelapackage.task.EventTask;
+import angelapackage.task.Task;
+import angelapackage.task.ToDoTask;
 
 /**
  * Class that handles interactions with local storage.
@@ -18,21 +20,21 @@ import java.util.List;
  */
 
 public class Storage {
-	Path filePath;
-    Path dirPath;
+    private Path filePath;
+    private Path dirPath;
 
-	public Storage() {
+    public Storage() {
         dirPath = Paths.get("data");
-		filePath = Paths.get("data", "db.txt");
-	}
+        filePath = Paths.get("data", "db.txt");
+    }
 
-	public List<Task> init() throws AngelaException {
+    public List<Task> init() throws AngelaException {
         createDir();
         if (!Files.exists(filePath)) {
             createSave();
         }
         return loadSave();
-	}
+    }
 
     /**
      * Creates a directory for saved data if not present
@@ -60,7 +62,7 @@ public class Storage {
 
     /**
      * Returns loaded tasks from file at filePath
-     * If tasks do not exist, empty List<Task> is returned
+     * If tasks do not exist, empty List is returned
      * @return List of tasks retrieved from file
      * @throws AngelaException If directory cannot be created
      */
@@ -91,12 +93,14 @@ public class Storage {
         Task t;
         String[] lineArr = line.split("\\|\\|"); //no way malicious injection is real
         t = switch (lineArr[0]) { //as we all know nothing bad ever happens when we save data as text
-            case "T" -> new ToDoTask(lineArr[2]);
-            case "D" -> new DeadlineTask(lineArr[2], lineArr[3]);
-            case "E" -> new EventTask(lineArr[2], lineArr[3], lineArr[4]);
-            default -> throw new AngelaException("");
+        case "T" -> new ToDoTask(lineArr[2]);
+        case "D" -> new DeadlineTask(lineArr[2], lineArr[3]);
+        case "E" -> new EventTask(lineArr[2], lineArr[3], lineArr[4]);
+        default -> throw new AngelaException("");
         };
-        if (lineArr[1].equals("1")) t.doTask();
+        if (lineArr[1].equals("1")) {
+            t.doTask();
+        }
         return t;
     }
 
@@ -106,7 +110,7 @@ public class Storage {
      * @throws AngelaException If write cannot be performed
      */
     public void save(String toWrite) throws AngelaException {
-        try  {
+        try {
             Files.writeString(filePath, toWrite,
                     StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
         } catch (IOException e) {

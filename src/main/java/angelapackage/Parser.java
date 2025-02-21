@@ -1,4 +1,4 @@
-package Angela;
+package angelapackage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Parser {
      * @param input Input string
      * @return Created command object
      */
-    public Command parseCommand(String input){
+    public Command parseCommand(String input) {
         List<String> commandList;
         commandList = splitInput(input);
         return listToCommand(commandList);
@@ -60,7 +60,7 @@ public class Parser {
     public Command listToCommand(List<String> commandList) {
         try {
             Command command;
-            if (commandList.size() >= 2){
+            if (commandList.size() >= 2) {
                 command = new Command(commandList.get(0), commandList.get(1));
             } else {
                 command = new Command(commandList.get(0), "");

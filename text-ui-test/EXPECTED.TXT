@@ -1,5 +1,5 @@
 ____________________________________________________________
-Hello X. I am Angela.Angela, your advisor and secretary.
+Hello X. I am angelapackage.angelapackage, your advisor and secretary.
 My role as an AI is to assist you in adjusting to your
 new workplace.
 What can I do for you, Manager?
@@ -7,17 +7,17 @@ ____________________________________________________________
 ____________________________________________________________
 Did the Sephira give you a new task again?
 [T][ ] Extract EGO from Queen of Hatred
-Angela.task.Task added, you now have 1 tasks left.
+angelapackage.task.Task added, you now have 1 tasks left.
 ____________________________________________________________
 ____________________________________________________________
 A new energy quota to achieve. Please work hard, Manager.
 [D][ ] Resolve Qliphoth Meltdown of Nothing There (by: 3pm)
-Angela.task.Task added, you now have 2 tasks left.
+angelapackage.task.Task added, you now have 2 tasks left.
 ____________________________________________________________
 ____________________________________________________________
 Dawn arrives, with it comes a new Ordeal. Please take care of it, Manager.
 [E][ ] Noon Ordeal (from: 12pm to 1pm)
-Angela.task.Task added, you now have 3 tasks left.
+angelapackage.task.Task added, you now have 3 tasks left.
 ____________________________________________________________
 ____________________________________________________________
 1. [T][ ] Extract EGO from Queen of Hatred

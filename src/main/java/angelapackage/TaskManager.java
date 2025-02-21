@@ -1,17 +1,17 @@
-package Angela;
-
-import Angela.exception.AngelaException;
-import Angela.exception.InvalidArgumentAngelaException;
-import Angela.exception.MissingArgumentAngelaException;
-import Angela.exception.OutOfBoundsAngelaException;
-import Angela.exception.InvalidDateTimeAngelaException;
-import Angela.task.DeadlineTask;
-import Angela.task.EventTask;
-import Angela.task.Task;
-import Angela.task.ToDoTask;
+package angelapackage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import angelapackage.exception.AngelaException;
+import angelapackage.exception.InvalidArgumentAngelaException;
+import angelapackage.exception.InvalidDateTimeAngelaException;
+import angelapackage.exception.MissingArgumentAngelaException;
+import angelapackage.exception.OutOfBoundsAngelaException;
+import angelapackage.task.DeadlineTask;
+import angelapackage.task.EventTask;
+import angelapackage.task.Task;
+import angelapackage.task.ToDoTask;
 
 /**
  * Helper class to manage and store tasks.
@@ -159,7 +159,7 @@ public class TaskManager {
         }
         Output.findOutput(found);
     }
-  
+
     /**
      * Returns the string format of how tasks are represented when stored in storage
      * @return Tasks represented as string data

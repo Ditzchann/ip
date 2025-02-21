@@ -1,10 +1,8 @@
-package Angela;
-import Angela.Command;
-import Angela.Parser;
-
-import org.junit.jupiter.api.Test;
+package angelapackage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
@@ -17,7 +15,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_withCommand_singleArg() {
+    public void parseCommand_singleArg() {
         Parser parser = new Parser();
         Command c1 = new Command("test", "12345");
         Command c2 = new Command("test123", "abcdefghijk");
@@ -30,7 +28,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_withCommand_singleArg_oneFlag() {
+    public void parseCommand_singleArg_oneFlag() {
         Parser parser = new Parser();
         Command c1 = new Command("test", "12345");
         c1.addArg("a", "1234");
@@ -47,7 +45,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_withCommand_singleArg_multipleFlag() {
+    public void parseCommand_singleArg_multipleFlag() {
         Parser parser = new Parser();
         Command c1 = new Command("test", "12345");
         c1.addArg("a", "1234");

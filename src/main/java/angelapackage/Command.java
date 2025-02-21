@@ -1,11 +1,11 @@
-package Angela;
+package angelapackage;
 
-import Angela.exception.MissingArgumentAngelaException;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import angelapackage.exception.MissingArgumentAngelaException;
 
 /**
  * Represents a command line given by the user. A command object is represented by its name,

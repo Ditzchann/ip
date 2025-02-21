@@ -1,11 +1,12 @@
-package Angela;
-import Angela.exception.AngelaException;
-import Angela.exception.MissingArgumentAngelaException;
-import Angela.exception.InvalidArgumentAngelaException;
-import Angela.exception.InvalidDateTimeAngelaException;
-import Angela.exception.OutOfBoundsAngelaException;
+package angelapackage;
 
 import java.util.Scanner;
+
+import angelapackage.exception.AngelaException;
+import angelapackage.exception.InvalidArgumentAngelaException;
+import angelapackage.exception.InvalidDateTimeAngelaException;
+import angelapackage.exception.MissingArgumentAngelaException;
+import angelapackage.exception.OutOfBoundsAngelaException;
 
 /**
  * Central class responsible for handling information passing from one class to another.
@@ -16,15 +17,15 @@ public class Processor {
     private TaskManager manager;
     private Parser parser;
 
-	public Processor(Storage storageManager, TaskManager manager, Parser parser)  {
+    public Processor(Storage storageManager, TaskManager manager, Parser parser) {
         this.storageManager = storageManager;
         this.parser = parser;
         this.manager = manager;
-	}
+    }
 
-	public void start() {
-		Scanner textIn = new Scanner(System.in);
-		String input;
+    public void start() {
+        Scanner textIn = new Scanner(System.in);
+        String input;
         boolean bExit = false;
         try {
             manager.init(storageManager.init());
@@ -45,10 +46,9 @@ public class Processor {
 
             }
         }
-	}
+    }
 
     /**
-     *
      * @param input User input as a string
      * @return true if exit command is given
      * @throws MissingArgumentAngelaException If argument is missing
