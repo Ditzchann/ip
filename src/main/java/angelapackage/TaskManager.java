@@ -8,6 +8,7 @@ import angelapackage.exception.InvalidArgumentAngelaException;
 import angelapackage.exception.InvalidDateTimeAngelaException;
 import angelapackage.exception.MissingArgumentAngelaException;
 import angelapackage.exception.OutOfBoundsAngelaException;
+import angelapackage.gui.Output;
 import angelapackage.task.DeadlineTask;
 import angelapackage.task.EventTask;
 import angelapackage.task.Task;

@@ -1,6 +1,7 @@
 package angelapackage.gui;
 
 import angelapackage.Angela;
+import angelapackage.exception.AngelaException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Angela instance;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image rolandImage = new Image(this.getClass().getResourceAsStream("/images/Roland.png"));
+    private Image angelaImage = new Image(this.getClass().getResourceAsStream("/images/Angela.png"));
 
     @FXML
     public void initialize() {
@@ -32,7 +33,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Angela instance */
-    public void setDuke(Angela a) {
+    public void setInstance(Angela a) {
         instance = a;
     }
 
@@ -40,14 +41,23 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing Angela's reply and then
      * appends them to the dialog container. Clears the user input after processing.
      */
-    /*@FXML
+    @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = instance.getResponse(input);
+        if (input.isEmpty()) {
+            Output.idleOutput();
+        } else {
+            try {
+                boolean bExit = instance.processCommand(input);
+            } catch (AngelaException e) {
+                Output.errorOutput(e);
+            }
+        }
+        String response = Output.getLastOut();
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, rolandImage),
+                DialogBox.getDukeDialog(response, angelaImage)
         );
         userInput.clear();
-    }*/
+    }
 }

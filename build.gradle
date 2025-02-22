@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("angelapackage.Angela")
+    mainClass.set("angelapackage.Launcher")
 }
 
 shadowJar {

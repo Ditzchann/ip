@@ -7,6 +7,7 @@ import angelapackage.exception.InvalidArgumentAngelaException;
 import angelapackage.exception.InvalidDateTimeAngelaException;
 import angelapackage.exception.MissingArgumentAngelaException;
 import angelapackage.exception.OutOfBoundsAngelaException;
+import angelapackage.gui.Output;
 
 public class Angela {
     private static Storage storageManager;
@@ -14,36 +15,17 @@ public class Angela {
     private static Parser parser;
 
     public Angela() {
-    }
-
-    public static void main(String[] args) {
         storageManager = new Storage();
         manager = new TaskManager();
         parser = new Parser();
         Output.introOutput();
-        Scanner textIn = new Scanner(System.in);
-        String input;
-        boolean bExit = false;
         try {
             manager.init(storageManager.init());
-        } catch (AngelaException e) {
+        } catch (AngelaException e) { //should be thrown to gui
             Output.errorOutput(e);
-            bExit = true;
         }
-        while (!bExit) {
-            input = textIn.nextLine();
-            if (input.isEmpty()) {
-                Output.idleOutput();
-            } else {
-                try {
-                    bExit = processCommand(input);
-                } catch (AngelaException e) {
-                    Output.errorOutput(e);
-                }
-
-            }
-        }
-        exit();
+    }
+    public static void main(String[] args) {
     }
 
     /**
@@ -54,7 +36,7 @@ public class Angela {
      * @throws OutOfBoundsAngelaException If index given is out of bounds
      * @throws InvalidArgumentAngelaException If argument is not a number
      */
-    public static boolean processCommand(String input) throws AngelaException {
+    public boolean processCommand(String input) throws AngelaException {
         Command command = parser.parseCommand(input);
         switch (command.getName()) {
         case "list":
