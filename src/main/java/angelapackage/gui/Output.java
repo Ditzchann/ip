@@ -1,4 +1,4 @@
-package angelapackage;
+package angelapackage.gui;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import angelapackage.task.Task;
  * Class that handles output to user
  */
 public class Output {
+
+    private static String lastOut;
 
     public Output() {
 
@@ -23,6 +25,7 @@ public class Output {
 
     private static void output(String text) {
         System.out.println(text);
+        lastOut = text;
         System.out.println("____________________________________________________________");
     }
 
@@ -105,5 +108,9 @@ public class Output {
     public static void findOutput(List<Task> store) {
         output("Save your thanks. Such a task is trivial for an AI like me.\n"
                 + storeToString(store), true);
+    }
+
+    public static String getLastOut() {
+        return lastOut;
     }
 }
