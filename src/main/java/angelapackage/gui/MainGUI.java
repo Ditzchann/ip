@@ -1,5 +1,5 @@
 package angelapackage.gui;
-
+//solution below reused from SE-EDU textbook
 import java.io.IOException;
 
 import angelapackage.Angela;
@@ -24,6 +24,7 @@ public class MainGUI extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setInstance(angela);  // inject the Angela instance
+            stage.setTitle("Angela");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
