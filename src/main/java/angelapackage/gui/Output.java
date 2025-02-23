@@ -113,4 +113,27 @@ public class Output {
     public static String getLastOut() {
         return lastOut;
     }
+
+    public static void emptyUndo() {
+        output("The memory repository was freshly imprinted.\n"
+                + "There's no turning back from here.");
+    }
+
+    public static void badUndo() {
+        output("It appears that some of your actions cannot\n"
+                + "be undone through the memory repository."
+                + "Is this what you are trying to achieve, A?");
+    }
+
+    public static void worseUndo() {
+        output("Why repeat this endless cycle? There is no light\n"
+                + "to be found at the end of this 50 days.");
+    }
+
+    public static void undo(List<Task> store) {
+        output("""
+                Time has been rewound to the memory repository.
+                The current task list is as follows:
+                """ + storeToString(store));
+    }
 }

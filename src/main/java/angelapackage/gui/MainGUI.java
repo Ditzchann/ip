@@ -23,7 +23,7 @@ public class MainGUI extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setInstance(angela);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setInstance(angela);  // inject the Angela instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

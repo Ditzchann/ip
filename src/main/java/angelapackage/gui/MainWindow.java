@@ -36,6 +36,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Angela instance */
     public void setInstance(Angela a) {
         instance = a;
+        String response = Output.getLastOut();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAngelaDialog(response, angelaImage)
+        );
     }
 
     /**
@@ -49,11 +53,7 @@ public class MainWindow extends AnchorPane {
         if (input.isEmpty()) {
             Output.idleOutput();
         } else {
-            try {
-                bExit = instance.processCommand(input);
-            } catch (AngelaException e) {
-                Output.errorOutput(e);
-            }
+            bExit = instance.processCommand(input);
         }
         String response = Output.getLastOut();
         dialogContainer.getChildren().addAll(

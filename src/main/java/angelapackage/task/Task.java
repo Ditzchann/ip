@@ -10,22 +10,18 @@ import angelapackage.exception.InvalidDateTimeAngelaException;
  * Represents a task that the user can do. A Task object is represented
  * by its name and whether it is done
  */
-public class Task {
-    private final String name;
-    private boolean done;
+public abstract class Task {
+    protected final String name;
+    protected boolean done;
 
     public Task(String name) {
         this.name = name;
         this.done = false;
     }
 
-    public void doTask() {
-        this.done = true;
-    }
+    public abstract Task doTask();
 
-    public void undoTask() {
-        this.done = false;
-    }
+    public abstract Task undoTask();
 
     public LocalDate parseTime(String time) throws InvalidDateTimeAngelaException {
         LocalDate result;
