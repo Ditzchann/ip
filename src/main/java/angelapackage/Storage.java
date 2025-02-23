@@ -97,6 +97,7 @@ public class Storage {
     public Task processDb(String line) throws AngelaException {
         Task t;
         String[] lineArr = line.split("\\|\\|"); //no way malicious injection is real
+        assert lineArr.length > 0;
         t = switch (lineArr[0]) { //as we all know nothing bad ever happens when we save data as text
         case "T" -> new ToDoTask(lineArr[2]);
         case "D" -> new DeadlineTask(lineArr[2], lineArr[3]);

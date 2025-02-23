@@ -39,6 +39,7 @@ public class Angela {
      * @throws InvalidArgumentAngelaException If argument is not a number
      */
     public boolean processCommand(String input) throws AngelaException {
+        assert (!input.isEmpty());
         Command command = parser.parseCommand(input);
         switch (command.getName()) {
         case "list":
