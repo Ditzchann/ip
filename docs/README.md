@@ -32,6 +32,7 @@ Finds and lists all tasks that contain the given keyword. _How can I find my rea
 Revenge is all I've ever known._
 
 Command format: `find QUERY`
+- The query is case-sensitive.
 
 Example Usage: `find Suppress`
 
@@ -59,7 +60,8 @@ Task added, you now have 3 task(s) left.
 ### Deadlines
 Tasks that need to be done before a date. _Its similar to the ever-increasing energy quotas that you chase after._
 
-Command format: `deadline TASKNAME /by DD-MM-YYYY`
+Command format: `deadline TASKNAME /by DATE`
+- `DATE` should follow the format `DD-MM-YYYY`.
 
 Example Usage: `deadline Generate 1590 Enkaphalin boxes /by 23-02-2025`
 
@@ -73,7 +75,8 @@ Task added, you now have 2 task(s) left.
 ### Events
 Tasks that happen within a certain period. _Unlike the 50 days you've been through, they do not repeat._
 
-Command format: `event TASKNAME /from DD-MM-YYYY /to DD-MM-YYYY`
+Command format: `event TASKNAME /from DATE /to DATE`
+- `DATE` should follow the format `DD-MM-YYYY`.
 
 Example Usage: `event Suppress the Queen of Hatred /from 23-01-2025 /to 23-02-2025`
 
@@ -88,6 +91,7 @@ Task added, you now have 3 task(s) left.
 Marks a task as done. _Completing tasks from the Sephirah puts you one step closer to the Seed of Light._
 
 Command format: `mark INDEX`
+- The index is based on the index given using the `list` command.
 
 Example Usage: `mark 2`
 
@@ -100,6 +104,7 @@ Exceptional work Manager. The task has been marked as done.
 Marks a task as not done. _Restarting the day before it ends does not progress your tasks. Sacrifice is inevitable._
 
 Command format: `unmark INDEX`
+- The index is based on the index given using the `list` command.
 
 Example Usage: `unmark 2`
 
@@ -114,6 +119,7 @@ More work for the Manager. The task has been undone.
 Deletes a task from the list. _The City is an unforgiving place, offices and fixers disappear into the wind every day._
 
 Command format: `delete INDEX`
+- The index is based on the index given using the `list` command.
 
 Example Usage: `delete 2`
 
@@ -129,6 +135,8 @@ Undoes the last action that modifies the task list. _Time loses its meaning with
 follow._
 
 Command format: `undo`
+- Commands affected include `todo`, `deadline`, `event`, `delete`, `mark`, `unmark` and any meaningful `undo`.
+- An `undo` run after `list` and `find` will instead undo the previous action.
 
 Output: The task list after the undo
 ```
