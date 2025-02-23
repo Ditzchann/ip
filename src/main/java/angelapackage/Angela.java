@@ -19,7 +19,7 @@ public class Angela {
         Output.introOutput();
         try {
             manager.init(storageManager.init());
-        } catch (AngelaException e) { //should be thrown to gui
+        } catch (AngelaException e) {
             Output.errorOutput(e);
         }
     }
