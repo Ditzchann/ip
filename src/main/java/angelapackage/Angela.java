@@ -1,6 +1,7 @@
 package angelapackage;
 
 import java.util.List;
+import java.util.Scanner;
 
 import angelapackage.exception.AngelaException;
 import angelapackage.gui.Output;
@@ -21,10 +22,26 @@ public class Angela {
         try {
             List<Task> existingTasks = storageManager.init();
             manager.init(existingTasks);
-        } catch (AngelaException e) { //should be thrown to gui
+        } catch (AngelaException e) {
             Output.errorOutput(e);
         }
     }
+    /* debug code
+    public static void main(String[] a) {
+        Angela an = new Angela();
+        Scanner textIn = new Scanner(System.in);
+        String input;
+        boolean bExit = false;
+        while (!bExit) {
+            input = textIn.nextLine();
+            if (input.isEmpty()) {
+                Output.idleOutput();
+            } else {
+                bExit = an.processCommand(input);
+            }
+        }
+    }
+     */
 
     /**
      * @param input User input as a string

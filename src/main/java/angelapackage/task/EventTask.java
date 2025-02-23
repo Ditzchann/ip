@@ -39,6 +39,6 @@ public class EventTask extends Task {
 
     @Override
     public String stringify() {
-        return "E||" + super.stringify() + "||" + this.from + "||" + this.to;
+        return "E||" + super.stringify() + "||" + dateToData(this.from) + "||" + dateToData(this.to);
     }
 }
