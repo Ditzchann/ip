@@ -1,6 +1,6 @@
 package angelapackage;
 
-import java.util.Scanner;
+import java.util.List;
 
 import angelapackage.exception.AngelaException;
 import angelapackage.exception.InvalidArgumentAngelaException;
@@ -8,6 +8,7 @@ import angelapackage.exception.InvalidDateTimeAngelaException;
 import angelapackage.exception.MissingArgumentAngelaException;
 import angelapackage.exception.OutOfBoundsAngelaException;
 import angelapackage.gui.Output;
+import angelapackage.task.Task;
 
 public class Angela {
     private static Storage storageManager;
@@ -20,7 +21,8 @@ public class Angela {
         parser = new Parser();
         Output.introOutput();
         try {
-            manager.init(storageManager.init());
+            List<Task> existingTasks = storageManager.init();
+            manager.init(existingTasks);
         } catch (AngelaException e) { //should be thrown to gui
             Output.errorOutput(e);
         }
@@ -70,9 +72,5 @@ public class Angela {
         }
         storageManager.save(manager.tasksToString());
         return false;
-    }
-
-    public static void exit() {
-        Output.exitOutput();
     }
 }

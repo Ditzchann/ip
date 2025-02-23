@@ -28,6 +28,11 @@ public class Storage {
         filePath = Paths.get("data", "db.txt");
     }
 
+    /**
+     * Initializes storage and loads task list from it
+     * @return List of tasks loaded
+     * @throws AngelaException If file cannot be created
+     */
     public List<Task> init() throws AngelaException {
         createDir();
         if (!Files.exists(filePath)) {

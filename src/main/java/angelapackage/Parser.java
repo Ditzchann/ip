@@ -23,7 +23,8 @@ public class Parser {
         return listToCommand(commandList);
     }
 
-    public List<String> splitInput(String input) {
+    //breaks up input into list of words for processing into a Command object
+    private List<String> splitInput(String input) {
         List<String> args = new ArrayList<>();
         int i = 0;
         i = getEndIndexOfWord(i, input, args);
@@ -35,7 +36,8 @@ public class Parser {
         return args;
     }
 
-    public int getEndIndexOfWord(int start, String input, List<String> args) {
+    //attempts to get substring until next space, used to get last index of command/parameter names
+    private int getEndIndexOfWord(int start, String input, List<String> args) {
         int i = start;
         while (i < input.length() && input.charAt(i) != ' ') {
             i++;
@@ -46,7 +48,8 @@ public class Parser {
         return i + 1;
     }
 
-    public int getEndIndexOfArg(int start, String input, List<String> args) {
+    //attempts to get substring until next /, used to get last index of arguments
+    private int getEndIndexOfArg(int start, String input, List<String> args) {
         int i = start;
         while (i < input.length() && input.charAt(i) != '/') {
             i++;
@@ -57,7 +60,8 @@ public class Parser {
         return i + 1;
     }
 
-    public Command listToCommand(List<String> commandList) {
+    //converts list into a command based on its order {command, main argument, /parameter1, argument1, ...}
+    private Command listToCommand(List<String> commandList) {
         try {
             Command command;
             if (commandList.size() >= 2) {
