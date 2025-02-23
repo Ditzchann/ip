@@ -1,9 +1,10 @@
 package angelapackage;
 
-import java.util.Scanner;
+import java.util.List;
 
 import angelapackage.exception.AngelaException;
 import angelapackage.gui.Output;
+import angelapackage.task.Task;
 
 public class Angela {
     private Storage storageManager;
@@ -18,8 +19,9 @@ public class Angela {
         lastFunction = null;
         Output.introOutput();
         try {
-            manager.init(storageManager.init());
-        } catch (AngelaException e) {
+            List<Task> existingTasks = storageManager.init();
+            manager.init(existingTasks);
+        } catch (AngelaException e) { //should be thrown to gui
             Output.errorOutput(e);
         }
     }
