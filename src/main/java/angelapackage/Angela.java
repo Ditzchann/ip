@@ -10,14 +10,16 @@ import angelapackage.exception.OutOfBoundsAngelaException;
 import angelapackage.gui.Output;
 
 public class Angela {
-    private static Storage storageManager;
-    private static TaskManager manager;
-    private static Parser parser;
+    private Storage storageManager;
+    private TaskManager manager;
+    private Parser parser;
+    private Command lastFunction;
 
     public Angela() {
         storageManager = new Storage();
         manager = new TaskManager();
         parser = new Parser();
+        lastFunction = null;
         Output.introOutput();
         try {
             manager.init(storageManager.init());
@@ -38,6 +40,7 @@ public class Angela {
      */
     public boolean processCommand(String input) throws AngelaException {
         Command command = parser.parseCommand(input);
+        boolean bBadUndo = false;
         switch (command.getName()) {
         case "list":
             manager.displayList();
@@ -63,10 +66,18 @@ public class Angela {
         case "find":
             manager.findTask(command);
             break;
+        case "undo":
+            bBadUndo = undo();
+            break;
         case "bye":
             return true;
         default:
             Output.invalidCommandOutput();
+        }
+        if (bBadUndo) {
+            lastFunction = new Command("badUndo", "");
+        } else {
+            lastFunction = command;
         }
         storageManager.save(manager.tasksToString());
         return false;
@@ -74,5 +85,31 @@ public class Angela {
 
     public static void exit() {
         Output.exitOutput();
+    }
+
+    public boolean undo() {
+        boolean bBadUndo = false;
+        if (lastFunction == null) {
+            Output.emptyUndo();
+        }
+        switch (lastFunction.getName()) {
+        case "todo":
+        case "deadline":
+        case "event":
+        case "done":
+        case "undone":
+        case "undo":
+        case "delete":
+            manager.undo();
+            break;
+        case "list":
+        case "find":
+            Output.badUndo();
+            bBadUndo = true;
+        case "badUndo":
+            Output.worseUndo();
+        default:
+            assert false; //code should not come here - independent of user input
+        }
     }
 }
