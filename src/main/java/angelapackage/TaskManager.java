@@ -20,9 +20,11 @@ import angelapackage.task.ToDoTask;
 public class TaskManager {
 
     private List<Task> store;
+    private List<Task> archive;
 
     public TaskManager() {
         store = new ArrayList<>();
+        archive = new ArrayList<>(store);
     }
 
     public void init(List<Task> store) {
@@ -44,7 +46,8 @@ public class TaskManager {
         }
         try {
             int input = Integer.parseInt(command.getMainArg());
-            store.get(input - 1).doTask();
+            Task t = store.get(input - 1).doTask();
+            store.set(input - 1, t);
             Output.doneOutput(store.get(input - 1));
         } catch (NumberFormatException e) {
             throw new InvalidArgumentAngelaException("mark");
@@ -64,7 +67,8 @@ public class TaskManager {
         }
         try {
             int input = Integer.parseInt(command.getMainArg());
-            store.get(input - 1).undoTask();
+            Task t = store.get(input - 1).undoTask();
+            store.set(input - 1, t);
             Output.undoneOutput(store.get(input - 1));
         } catch (NumberFormatException e) {
             throw new InvalidArgumentAngelaException("unmark");
@@ -171,5 +175,19 @@ public class TaskManager {
             toWrite.append(t.stringify()).append("\n");
         }
         return toWrite.toString();
+    }
+
+    public void archive(Command command) {
+        List<String> staticCommands = new ArrayList<>(List.of("undo", "list", "find"));
+        if (!staticCommands.contains(command.getName())) {
+            archive = new ArrayList<>(store);
+        }
+    }
+
+    public void undo() {
+        List<Task> temp = new ArrayList<>(archive);
+        archive = new ArrayList<>(store);
+        store = new ArrayList<>(temp);
+        Output.undo(store);
     }
 }

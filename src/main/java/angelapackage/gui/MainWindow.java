@@ -2,6 +2,7 @@ package angelapackage.gui;
 
 import angelapackage.Angela;
 import angelapackage.exception.AngelaException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -35,6 +36,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Angela instance */
     public void setInstance(Angela a) {
         instance = a;
+        String response = Output.getLastOut();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAngelaDialog(response, angelaImage)
+        );
     }
 
     /**
@@ -44,14 +49,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        boolean bExit = false;
         if (input.isEmpty()) {
             Output.idleOutput();
         } else {
-            try {
-                boolean bExit = instance.processCommand(input);
-            } catch (AngelaException e) {
-                Output.errorOutput(e);
-            }
+            bExit = instance.processCommand(input);
         }
         String response = Output.getLastOut();
         dialogContainer.getChildren().addAll(
@@ -59,5 +61,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAngelaDialog(response, angelaImage)
         );
         userInput.clear();
+        if (bExit) {
+            Platform.exit();
+        }
     }
 }
