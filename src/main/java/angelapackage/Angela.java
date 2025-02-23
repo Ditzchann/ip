@@ -26,22 +26,6 @@ public class Angela {
             Output.errorOutput(e);
         }
     }
-    /* debug code
-    public static void main(String[] a) {
-        Angela an = new Angela();
-        Scanner textIn = new Scanner(System.in);
-        String input;
-        boolean bExit = false;
-        while (!bExit) {
-            input = textIn.nextLine();
-            if (input.isEmpty()) {
-                Output.idleOutput();
-            } else {
-                bExit = an.processCommand(input);
-            }
-        }
-    }
-     */
 
     /**
      * @param input User input as a string
